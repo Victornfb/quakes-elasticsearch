@@ -38,24 +38,6 @@ export class SearchController {
     await this.searchService.createDocumentsInBatch(documents);
   }
 
-  @Post('file')
-  @UseInterceptors(FileInterceptor('file'))
-  @ApiOperation({ summary: 'Create a batch of documents by file' })
-  @ApiResponse({
-    status: 201,
-    description: 'The documents has been successfully created.',
-  })
-  async createDocumentsByFile(
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [new FileTypeValidator({ fileType: 'text/csv' })],
-      }),
-    )
-    file: Express.Multer.File,
-  ) {
-    await this.searchService.createDocumentsByFile(file);
-  }
-
   @Get(':index')
   @ApiOperation({ summary: 'Search documents' })
   @ApiResponse({ status: 200, description: 'The documents were found.' })

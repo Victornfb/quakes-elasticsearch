@@ -18,37 +18,7 @@ export class SearchService {
     return result;
   }
 
-  async createDocumentsByFile(file: Express.Multer.File) {
-    const result = [];
-    let isFirstRowResolved = false;
-
-    await new Promise<string[]>((resolve, reject) => {
-      const parser = parse(file.buffer, {
-        delimiter: [','],
-      });
-
-      parser.on('data', async (row) => {
-        if (!isFirstRowResolved) isFirstRowResolved = true;
-        result.push(
-          await this.elasticsearchService.create('nyc_traffic_accidents', row),
-        );
-      });
-
-      parser.on('error', (err) => {
-        reject(err);
-      });
-
-      parser.on('end', () => {
-        if (!isFirstRowResolved) {
-          reject(new BadRequestException('No rows were found in the file.'));
-        }
-      });
-    });
-
-    return result;
-  }
-
-  async searchDocuments(index: string, query: any) {
-    return await this.elasticsearchService.search(index, query);
+  async searchDocuments(index: string, search: any) {
+    return await this.elasticsearchService.search(index, search);
   }
 }

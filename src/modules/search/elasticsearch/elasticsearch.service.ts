@@ -10,12 +10,10 @@ export class ElasticsearchService {
     this.client = new Client({ host: 'http://localhost:9200' });
   }
 
-  async search(index: string, query: any) {
+  async search(index: string, search: any) {
     const result = await this.client.search({
       index,
-      body: {
-        query,
-      },
+      body: search,
     });
 
     return result.hits.hits.map((hit) => hit._source);
