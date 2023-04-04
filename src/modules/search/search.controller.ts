@@ -1,16 +1,6 @@
-import {
-  Body,
-  Controller,
-  FileTypeValidator,
-  Get,
-  Param,
-  ParseFilePipe,
-  Post,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
 import { SearchService } from './search.service';
 
 @Controller('search')

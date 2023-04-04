@@ -1,5 +1,7 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import axios from 'axios';
+
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+
 import { ElasticsearchService } from './elasticsearch/elasticsearch.service';
 
 interface Quake {
