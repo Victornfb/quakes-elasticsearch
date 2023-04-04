@@ -19,13 +19,17 @@ export class ElasticsearchService {
     return result.hits.hits.map((hit) => hit._source);
   }
 
-  async create(index: string, document: any) {
-    return await this.client.create({
-      index,
-      type: '_doc',
-      id: uuidv4(),
-      body: document,
-    });
+  async create(index: string, id: any = null, document: any) {
+    try {
+      return await this.client.create({
+        index,
+        type: '_doc',
+        id: id || uuidv4(),
+        body: document,
+      });
+    } catch (err) {
+      return;
+    }
   }
 
   async update(index: string, id: string, document: any) {

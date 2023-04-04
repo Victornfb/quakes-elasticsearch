@@ -18,7 +18,17 @@ import { SearchService } from './search.service';
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
-  @Post()
+  @Post('ingest')
+  @ApiOperation({ summary: 'Create a document' })
+  @ApiResponse({
+    status: 201,
+    description: 'The document has been successfully created.',
+  })
+  async ingestData() {
+    return await this.searchService.ingestData();
+  }
+
+  @Post('document')
   @ApiOperation({ summary: 'Create a document' })
   @ApiResponse({
     status: 201,
@@ -26,16 +36,6 @@ export class SearchController {
   })
   async createDocument(@Body() document: any) {
     await this.searchService.createDocument(document);
-  }
-
-  @Post('batch')
-  @ApiOperation({ summary: 'Create a batch of documents' })
-  @ApiResponse({
-    status: 201,
-    description: 'The documents has been successfully created.',
-  })
-  async createDocumentsInBatch(@Body() documents: any[]) {
-    await this.searchService.createDocumentsInBatch(documents);
   }
 
   @Get(':index')
